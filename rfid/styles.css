@@ -10,7 +10,7 @@
     --accent-hue: 43;
     --accent-sat: 96%;
     --accent-light: 56%;
-    
+
     /* Sistema de colores */
     --background: hsl(0, 0%, 100%);
     --foreground: hsl(222, 47%, 11%);
@@ -28,15 +28,15 @@
     --accent-foreground: hsl(26, 83%, 14%);
     --destructive: hsl(0, 84%, 60%);
     --destructive-foreground: hsl(210, 40%, 98%);
-    
+
     /* Tipografía */
     --font-sans: 'Inter', sans-serif;
     --font-heading: 'Poppins', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
-    
+
     /* Elevación para hover */
-    --elevate-1: rgba(0,0,0, 0.03);
-    --elevate-2: rgba(0,0,0, 0.08);
+    --elevate-1: rgba(0, 0, 0, 0.03);
+    --elevate-2: rgba(0, 0, 0, 0.08);
 }
 
 /* Variables CSS - Modo Oscuro */
@@ -57,8 +57,109 @@ body.dark {
     --accent-foreground: hsl(48, 96%, 89%);
     --destructive: hsl(0, 84%, 60%);
     --destructive-foreground: hsl(210, 40%, 98%);
-    --elevate-1: rgba(255,255,255, 0.04);
-    --elevate-2: rgba(255,255,255, 0.09);
+    --elevate-1: rgba(255, 255, 255, 0.04);
+    --elevate-2: rgba(255, 255, 255, 0.09);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.pdf-modal {
+    display: none;
+    /* oculto por defecto */
+    position: fixed;
+    inset: 0;
+    /* z-index MUY alto para pasar encima de menús tercos */
+    z-index: 2147483647;
+    /* max 32-bit int */
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.pdf-modal.is-open {
+    display: flex;
+}
+
+.pdf-modal-content {
+    position: relative;
+    background: #fff;
+    width: 92vw;
+    max-width: 1000px;
+    height: 88vh;
+    max-height: 100vh;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.cerrar-btn {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: #e74c3c;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    width: 40px;
+    height: 40px;
+    line-height: 0;
+}
+
+.cerrar-btn:hover {
+    background: #c0392b;
+}
+
+.pdf-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Evitar que elementos “pegajosos” queden encima del modal */
+.pdf-modal * {
+    isolation: isolate;
+}
+
+.cerrar-btn {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: #e74c3c;
+    border: none;
+    color: #fff;
+    font-size: 26px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    line-height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    /* 🔥 Esto lo pone por encima del iframe */
+}
+
+.cerrar-btn:hover {
+    background: #c0392b;
+    transform: scale(1.05);
 }
 
 /* Reset y Base */
@@ -78,13 +179,19 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--font-heading);
     font-weight: 700;
     line-height: 1.2;
 }
 
-code, pre {
+code,
+pre {
     font-family: var(--font-mono);
 }
 
@@ -108,12 +215,12 @@ code, pre {
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .theme-toggle:hover {
     transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .theme-toggle .sun-icon {
@@ -179,7 +286,7 @@ body.dark .theme-toggle .moon-icon {
     border-radius: 50%;
     background: white;
     padding: 0.5rem;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
 }
 
 @media (min-width: 768px) {
@@ -296,7 +403,7 @@ body.dark .theme-toggle .moon-icon {
 .hero-button:hover {
     background: white;
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .hero-button svg {
@@ -315,7 +422,7 @@ body.dark .theme-toggle .moon-icon {
     background: hsla(0, 0%, 100%, 0.95);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--border);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 body.dark .sticky-nav {
@@ -573,7 +680,7 @@ body.dark .success-text {
     text-align: center;
 }
 
-.space-y-6 > * + * {
+.space-y-6>*+* {
     margin-top: 1.5rem;
 }
 
@@ -1149,11 +1256,11 @@ html {
     .section-title {
         font-size: 2rem;
     }
-    
+
     .hero-title {
         font-size: 2rem;
     }
-    
+
     .card-title {
         font-size: 1.25rem;
     }
@@ -1176,7 +1283,7 @@ html {
 
 .hero-cta:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .hero-cta-primary {
@@ -1211,7 +1318,7 @@ html {
 .modal-backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(2px);
 }
 
@@ -1226,7 +1333,7 @@ html {
     z-index: 201;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
 }
 
 .modal-close {

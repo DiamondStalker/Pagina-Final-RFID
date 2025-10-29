@@ -1,18 +1,80 @@
+const btnVer = document.getElementById('ver-pdf');
+const modal = document.getElementById('pdf-modal');
+const cerrarBtn = document.getElementById('cerrar-pdf');
+
+let scrollYBeforeOpen = 0;
+let lastFocusedEl = null;
+
+function openModal() {
+    // Guardar scroll y foco
+    scrollYBeforeOpen = window.scrollY || document.documentElement.scrollTop;
+    lastFocusedEl = document.activeElement;
+
+    // Bloquear scroll SIN “salto” (fix cross-browser)
+    document.documentElement.style.scrollBehavior = 'auto'; // evita animaciones
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollYBeforeOpen}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
+
+    // Mostrar modal
+    modal.classList.add('is-open');
+    modal.focus({ preventScroll: true });
+}
+
+function closeModal() {
+    modal.classList.remove('is-open');
+
+    // Restaurar scroll
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    document.body.style.overflow = '';
+    document.body.style.touchAction = '';
+
+    window.scrollTo(0, scrollYBeforeOpen);
+    if (lastFocusedEl) lastFocusedEl.focus({ preventScroll: true });
+}
+
+// Abrir
+btnVer.addEventListener('click', openModal);
+
+// Cerrar por botón, click fuera y Escape
+cerrarBtn.addEventListener('click', closeModal);
+modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(); });
+
+// iOS/Android: bloquear desplazamiento de fondo cuando tocan el overlay
+modal.addEventListener('touchmove', (e) => {
+    if (e.target === modal) e.preventDefault();
+}, { passive: false });
+
+// **Opcional PRO**: asegurarte que el modal esté al final del body
+// (por si tu menú vive en un contenedor con transform/z-index altos).
+if (modal.parentElement !== document.body) {
+    document.body.appendChild(modal);
+}
+
 // Sistema de Tema Claro/Oscuro
-(function() {
+(function () {
     'use strict';
-    
+
     // Obtener el tema guardado o usar 'light' como predeterminado
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.body.className = savedTheme;
-    
+
     // Toggle del tema
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
+        themeToggle.addEventListener('click', function () {
             const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
+
             document.body.className = newTheme;
             localStorage.setItem('theme', newTheme);
         });
@@ -23,7 +85,7 @@
 function scrollToSection(sectionId) {
     const element = document.getElementById(sectionId);
     if (element) {
-        element.scrollIntoView({ 
+        element.scrollIntoView({
             behavior: 'smooth',
             block: 'start'
         });
@@ -31,27 +93,27 @@ function scrollToSection(sectionId) {
 }
 
 // Efecto de aparición al hacer scroll
-(function() {
+(function () {
     'use strict';
-    
+
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
-    
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
+
+    const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
             }
         });
     }, observerOptions);
-    
+
     // Observar todas las tarjetas y secciones
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const animatedElements = document.querySelectorAll('.card, .section-header, .process-item');
-        animatedElements.forEach(function(el) {
+        animatedElements.forEach(function (el) {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -61,25 +123,25 @@ function scrollToSection(sectionId) {
 })();
 
 // Indicador de sección activa en la navegación
-(function() {
+(function () {
     'use strict';
-    
-    window.addEventListener('scroll', function() {
+
+    window.addEventListener('scroll', function () {
         const sections = document.querySelectorAll('section[id]');
         const navButtons = document.querySelectorAll('.nav-button');
-        
+
         let currentSection = '';
-        
-        sections.forEach(function(section) {
+
+        sections.forEach(function (section) {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
-            
+
             if (window.pageYOffset >= sectionTop - 200) {
                 currentSection = section.getAttribute('id');
             }
         });
-        
-        navButtons.forEach(function(button) {
+
+        navButtons.forEach(function (button) {
             button.style.background = 'transparent';
             const onclick = button.getAttribute('onclick') || '';
             const match = onclick.match(/'([^']+)'/);
@@ -93,12 +155,12 @@ function scrollToSection(sectionId) {
 })();
 
 // Animación de números en la sección de resultados
-(function() {
+(function () {
     'use strict';
-    
+
     function animateValue(element, start, end, duration, suffix) {
         let startTimestamp = null;
-        const step = function(timestamp) {
+        const step = function (timestamp) {
             if (!startTimestamp) startTimestamp = timestamp;
             const progress = Math.min((timestamp - startTimestamp) / duration, 1);
             const value = Math.floor(progress * (end - start) + start);
@@ -109,15 +171,15 @@ function scrollToSection(sectionId) {
         };
         window.requestAnimationFrame(step);
     }
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        const statsObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const statsObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
                 if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
                     entry.target.classList.add('animated');
-                    
+
                     const statValues = entry.target.querySelectorAll('.stat-big-value');
-                    statValues.forEach(function(stat) {
+                    statValues.forEach(function (stat) {
                         const text = stat.textContent;
                         if (text.includes('%')) {
                             animateValue(stat, 0, 100, 2000, '%');
@@ -130,7 +192,7 @@ function scrollToSection(sectionId) {
                 }
             });
         }, { threshold: 0.5 });
-        
+
         const resultsSection = document.querySelector('.results-stats');
         if (resultsSection) {
             statsObserver.observe(resultsSection);
@@ -139,14 +201,14 @@ function scrollToSection(sectionId) {
 })();
 
 // Mejora de accesibilidad para navegación con teclado
-(function() {
+(function () {
     'use strict';
-    
-    document.addEventListener('DOMContentLoaded', function() {
+
+    document.addEventListener('DOMContentLoaded', function () {
         const buttons = document.querySelectorAll('button, .nav-button');
-        
-        buttons.forEach(function(button) {
-            button.addEventListener('keydown', function(e) {
+
+        buttons.forEach(function (button) {
+            button.addEventListener('keydown', function (e) {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     button.click();
@@ -157,13 +219,13 @@ function scrollToSection(sectionId) {
 })();
 
 // Prevenir que el botón de tema interfiera con el scroll
-(function() {
+(function () {
     'use strict';
-    
-    document.addEventListener('DOMContentLoaded', function() {
+
+    document.addEventListener('DOMContentLoaded', function () {
         const themeToggle = document.getElementById('theme-toggle');
         if (themeToggle) {
-            themeToggle.addEventListener('click', function(e) {
+            themeToggle.addEventListener('click', function (e) {
                 e.stopPropagation();
             });
         }
@@ -171,14 +233,14 @@ function scrollToSection(sectionId) {
 })();
 
 // OneDrive preview modal logic
-(function() {
+(function () {
     'use strict';
 
     // URL pública de OneDrive (carpeta compartida)
     const oneDriveShare = 'https://1drv.ms/f/c/95552b31406338aa/Eq6O2md4WcFKvLmqHTbHX34BwHb00wxOdkiF19NW9AY5zQ?e=6gyuae';
 
     // Elementos del DOM (se enlazan al cargar)
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const previewBtn = document.getElementById('preview-onedrive');
         const modal = document.getElementById('onedrive-modal');
         const backdrop = document.getElementById('onedrive-modal-backdrop');
@@ -194,7 +256,7 @@ function scrollToSection(sectionId) {
 
             // Si Office Viewer no funciona por CORS/embeds, mostramos la carpeta OneDrive directamente como fallback.
             // Se configura un timeout corto: si el iframe no carga en 2s, cargamos el enlace directo.
-            const fallbackTimeout = setTimeout(function() {
+            const fallbackTimeout = setTimeout(function () {
                 if (iframe.contentDocument === null) {
                     iframe.src = oneDriveShare;
                 }
@@ -219,7 +281,7 @@ function scrollToSection(sectionId) {
             }
         }
 
-        previewBtn.addEventListener('click', function(e) {
+        previewBtn.addEventListener('click', function (e) {
             e.preventDefault();
             openModal();
         });
@@ -228,7 +290,7 @@ function scrollToSection(sectionId) {
         backdrop && backdrop.addEventListener('click', closeModal);
 
         // Cerrar con Escape
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
                 closeModal();
             }
