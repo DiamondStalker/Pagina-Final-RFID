@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>Sistema RFID - Control de Acceso | Colegio Divino Salvador</title>
+    <meta name="description" content="Proyecto educativo de implementación de sistema RFID para control de acceso a baños escolares. Desarrollado por estudiantes del Colegio Divino Salvador, Medellín.">
+    <link rel="icon" type="image/png" href="https://www.pngkit.com/png/detail/764-7649977_colegio-divino-salvador-a-la-tienda-escolar-png.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="light">
+    
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
+        <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
+    <div class="min-h-screen">
+        
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="hero-pattern"></div>
+            
+            <div class="hero-content">
+                <div class="school-logo-container">
+                    <img src="https://www.pngkit.com/png/detail/764-7649977_colegio-divino-salvador-a-la-tienda-escolar-png.png" alt="Colegio Divino Salvador" class="school-logo">
+                </div>
+                
+                <h1 class="hero-title">
+                    Sistema RFID para Control de Acceso
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Control Inteligente de Baños Escolares
+                </p>
+                
+                <p class="hero-location">
+                    Colegio Divino Salvador - Medellín, Colombia
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value">3</div>
+                                <div class="stat-label">Estudiantes</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-icon accent-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <circle cx="12" cy="12" r="6"></circle>
+                                    <circle cx="12" cy="12" r="2"></circle>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value">2</div>
+                                <div class="stat-label">Profesores Guía</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-icon accent-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>    
+                                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value">1</div>
+                                <div class="stat-label">Solución Innovadora</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap; align-items:center;">
+                    <button class="hero-button" onclick="scrollToSection('problema')">
+                        Descubre Cómo Funciona
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <polyline points="19 12 12 19 5 12"></polyline>
+                        </svg>
+                    </button>
+
+                    <!-- OneDrive / GitHub buttons -->
+                    <a class="hero-cta hero-cta-primary" href="https://1drv.ms/f/c/95552b31406338aa/Eq6O2md4WcFKvLmqHTbHX34BwHb00wxOdkiF19NW9AY5zQ?e=6gyuae" target="_blank" rel="noopener noreferrer" title="Abrir carpeta en OneDrive">
+                        Descargar documentación (OneDrive)
+                    </a>
+
+                    <!-- Ahora dirige al repositorio en GitHub (no previsualiza) -->
+                    <a class="hero-cta hero-cta-primary" href="https://github.com/STELLAXACT/Proyecto-Investigacion-RFID" target="_blank" rel="noopener noreferrer" title="Abrir repositorio en GitHub">
+                        Abrir repositorio (GitHub)
+                    </a>
+ 
+                    <a class="hero-cta hero-cta-ghost" href="https://github.com/STELLAXACT/Proyecto-Investigacion-RFID/archive/refs/heads/main.zip" target="_blank" rel="noopener noreferrer" title="Descargar ZIP del repositorio">
+                        Descargar código (GitHub)
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Navigation Bar - Sticky -->
+        <nav class="sticky-nav">
+            <div class="nav-container">
+                <button class="nav-button" onclick="scrollToSection('problema')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    El Problema
+                </button>
+                <button class="nav-button" onclick="scrollToSection('rfid')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="2"></circle>
+                        <path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path>
+                    </svg>
+                    ¿Qué es RFID?
+                </button>
+                <button class="nav-button" onclick="scrollToSection('materiales')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                    Materiales
+                </button>
+                <button class="nav-button" onclick="scrollToSection('funcionamiento')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                    Funcionamiento
+                </button>
+                <button class="nav-button" onclick="scrollToSection('desarrollo')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                    Desarrollo
+                </button>
+                <button class="nav-button" onclick="scrollToSection('resultados')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    Resultados
+                </button>
+                <button class="nav-button" onclick="scrollToSection('creditos')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    Créditos
+                </button>
+            </div>
+        </nav>
+
+        <!-- El Problema Section -->
+        <section id="problema" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="badge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                        El Desafío
+                    </div>
+                    <h2 class="section-title">El Problema que Resolvimos</h2>
+                    <div class="title-underline"></div>
+                </div>
+                
+                <div class="two-col-grid">
+                    <div class="space-y-6">
+                        <div class="card card-destructive">
+                            <h3 class="card-subtitle destructive-text">La Situación</h3>
+                            <p class="card-text">
+                                En los baños del colegio, algunos estudiantes se tardaban más tiempo del necesario, 
+                                y los profesores no tenían forma de saber si los estudiantes estaban seguros o 
+                                si habían regresado a clase.
+                            </p>
+                        </div>
+                        
+                        <div class="card card-primary">
+                            <h3 class="card-subtitle primary-text">Nuestra Solución</h3>
+                            <p class="card-text">
+                                Creamos un sistema especial de control de acceso usando tarjetas RFID que registra 
+                                cuándo un estudiante entra al baño y cuánto tiempo permanece fuera del aula. 
+                                Así ayudamos al colegio a estar más seguro y organizado.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="card-title">Objetivos del Proyecto</h3>
+                        <div class="objectives-list">
+                            <div class="objective-item">
+                                <svg class="check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                                <div>
+                                    <h4 class="objective-title">Control de Acceso</h4>
+                                    <p class="objective-desc">Registrar entrada y salida de estudiantes a los baños</p>
+                                </div>
+                            </div>
+                            <div class="objective-item">
+                                <svg class="check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                                <div>
+                                    <h4 class="objective-title">Monitoreo en Tiempo Real</h4>
+                                    <p class="objective-desc">Seguimiento del tiempo de ausencia de cada estudiante</p>
+                                </div>
+                            </div>
+                            <div class="objective-item">
+                                <svg class="check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                                <div>
+                                    <h4 class="objective-title">Seguridad Escolar</h4>
+                                    <p class="objective-desc">Mejorar la seguridad y organización del colegio</p>
+                                </div>
+                            </div>
+                            <div class="objective-item">
+                                <svg class="check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                                <div>
+                                    <h4 class="objective-title">Tecnología Educativa</h4>
+                                    <p class="objective-desc">Aplicar conocimientos de electrónica y programación</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ¿Qué es RFID? Section -->
+        <section id="rfid" class="section section-gradient">
+            <div class="container">
+                <div class="section-header">
+                    <div class="badge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="2"></circle>
+                            <path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path>
+                        </svg>
+                        Tecnología RFID
+                    </div>
+                    <h2 class="section-title">¿Qué es RFID?</h2>
+                    <div class="title-underline"></div>
+                    <p class="section-intro">
+                        RFID significa <span class="font-semibold">="Identificación por Radiofrecuencia"</span>. 
+                        Es como una barita mágica que lee información sin tocar nada.
+                    </p>
+                </div>
+                
+                <div class="three-col-grid">
+                    <div class="card card-hover text-center">
+                        <div class="icon-circle icon-primary">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="2"></circle>
+                                <path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">¿Qué es?</h3>
+                        <p class="card-text">
+                            Un sistema que usa ondas de radio para identificar objetos o personas de forma automática, 
+                            sin necesidad de contacto físico.
+                        </p>
+                    </div>
+                    
+                    <div class="card card-hover text-center">
+                        <div class="icon-circle icon-accent">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">¿Cómo funciona?</h3>
+                        <p class="card-text">
+                            La tarjeta RFID tiene un chip que envía información cuando está cerca de un lector. 
+                            ¡Es como magia, pero es ciencia!
+                        </p>
+                    </div>
+                    
+                    <div class="card card-hover text-center">
+                        <div class="icon-circle icon-primary">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="12" r="6"></circle>
+                                <circle cx="12" cy="12" r="2"></circle>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">Ejemplos de uso</h3>
+                        <p class="card-text">
+                            Tarjetas de transporte público, pases de acceso a edificios, 
+                            identificación de mascotas, y ahora ¡en nuestro colegio!
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="card margin-top">
+                    <h3 class="card-title text-center">Componentes del Sistema RFID</h3>
+                    <div class="two-col-grid">
+                        <div class="components-list">
+                            <div class="component-item">
+                                <div class="number-badge number-primary">1</div>
+                                <div>
+                                    <h4 class="component-title">Tarjeta RFID</h4>
+                                    <p class="component-desc">
+                                        Cada estudiante tiene una tarjeta con un chip único que lo identifica.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="component-item">
+                                <div class="number-badge number-primary">2</div>
+                                <div>
+                                    <h4 class="component-title">Lector RFID</h4>
+                                    <p class="component-desc">
+                                        Dispositivo que lee la información de la tarjeta cuando está cerca.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="components-list">
+                            <div class="component-item">
+                                <div class="number-badge number-accent">3</div>
+                                <div>
+                                    <h4 class="component-title">Computadora</h4>
+                                    <p class="component-desc">
+                                        Procesa la información y registra quién entró, a qué hora y cuánto tiempo.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="component-item">
+                                <div class="number-badge number-accent">4</div>
+                                <div>
+                                    <h4 class="component-title">Pantalla LCD</h4>
+                                    <p class="component-desc">
+                                        Muestra información en tiempo real del estudiante que acaba de pasar la tarjeta.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Materiales Section -->
+        <section id="materiales" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="badge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        </svg>
+                        Componentes
+                    </div>
+                    <h2 class="section-title">Materiales Utilizados</h2>
+                    <div class="title-underline"></div>
+                    <p class="section-intro">
+                        Estos son todos los componentes electrónicos y materiales que usamos para construir nuestro sistema
+                    </p>
+                </div>
+                
+                <div class="materials-grid">
+                    <div class="card card-hover">
+                        <div class="icon-square icon-primary-bg">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="material-title">Raspberry Pi 4</h3>
+                        <p class="material-subtitle">Computadora principal</p>
+                        <p class="card-text">
+                            Pequeña computadora que funciona como el cerebro del sistema. 
+                            Ejecuta el programa y procesa toda la información.
+                        </p>
+                        <div class="specs">
+                            <div class="spec-row">
+                                <span class="spec-label">Procesador:</span>
+                                <span class="spec-value">Quad-core ARM</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-label">Memoria:</span>
+                                <span class="spec-value">2-4 GB RAM</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card card-hover">
+                        <div class="icon-square icon-accent-bg">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="2"></circle>
+                                <path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path>
+                            </svg>
+                        </div>
+                        <h3 class="material-title">Sensor RFID RC522</h3>
+                        <p class="material-subtitle">Lector de tarjetas</p>
+                        <p class="card-text">
+                            Lee las tarjetas RFID de los estudiantes y envía la información 
+                            al Raspberry Pi para procesarla.
+                        </p>
+                        <div class="specs">
+                            <div class="spec-row">
+                                <span class="spec-label">Frecuencia:</span>
+                                <span class="spec-value">13.56 MHz</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-label">Distancia:</span>
+                                <span class="spec-value">0-5 cm</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card card-hover">
+                        <div class="icon-square icon-primary-bg">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="material-title">Pantalla LCD 16x2</h3>
+                        <p class="material-subtitle">Display de información</p>
+                        <p class="card-text">
+                            Muestra en tiempo real el nombre del estudiante y mensajes 
+                            del sistema cuando se pasa la tarjeta.
+                        </p>
+                        <div class="specs">
+                            <div class="spec-row">
+                                <span class="spec-label">Tamaño:</span>
+                                <span class="spec-value">16 columnas x 2 filas</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-label">Retroiluminación:</span>
+                                <span class="spec-value">Azul</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card card-hover">
+                        <div class="icon-square icon-accent-bg">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="material-title">Protoboard</h3>
+                        <p class="material-subtitle">Base de conexiones</p>
+                        <p class="card-text">
+                            Tablero donde conectamos todos los componentes sin necesidad de soldar. 
+                            Permite hacer pruebas y cambios fácilmente.
+                        </p>
+                    </div>
+                    
+                    <div class="card card-hover">
+                        <div class="icon-square icon-primary-bg">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                            </svg>
+                        </div>
+                        <h3 class="material-title">Cables Jumper</h3>
+                        <p class="material-subtitle">Cables de conexión</p>
+                        <p class="card-text">
+                            Cables para conectar todos los componentes entre sí.
+                        </p>
+                        <div class="cable-types">
+                            <div class="cable-type">• Cables macho-macho</div>
+                            <div class="cable-type">• Cables macho-hembra</div>
+                            <div class="cable-type">• Cables hembra-hembra</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card card-hover">
+                        <div class="icon-square icon-accent-bg">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                            </svg>
+                        </div>
+                        <h3 class="material-title">Tarjetas RFID</h3>
+                        <p class="material-subtitle">Identificación de estudiantes</p>
+                        <p class="card-text">
+                            Tarjetas que cada estudiante lleva consigo. Contienen un chip único que 
+                            identifica a cada persona.
+                        </p>
+                        <div class="specs">
+                            <div class="spec-row">
+                                <span class="spec-label">Tipo:</span>
+                                <span class="spec-value">Mifare 1K</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-label">Formato:</span>
+                                <span class="spec-value">Tarjeta / Llavero</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Funcionamiento Section -->
+        <section id="funcionamiento" class="section section-gradient">
+            <div class="container">
+                <div class="section-header">
+                    <div class="badge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                        Proceso
+                    </div>
+                    <h2 class="section-title">¿Cómo Funciona el Sistema?</h2>
+                    <div class="title-underline"></div>
+                    <p class="section-intro">
+                        El sistema funciona en 5 pasos simples que se ejecutan automáticamente
+                    </p>
+                </div>
+                
+                <div class="process-list">
+                    <div class="process-item">
+                        <div class="process-number">1</div>
+                        <div class="process-content">
+                            <h3 class="process-title">El estudiante acerca su tarjeta</h3>
+                            <p class="process-desc">
+                                Cuando un estudiante necesita ir al baño, acerca su tarjeta RFID al lector que está instalado en la entrada del
+                                baño.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-item">
+                        <div class="process-number">2</div>
+                        <div class="process-content">
+                            <h3 class="process-title">El lector identifica la tarjeta</h3>
+                            <p class="process-desc">
+                                El sensor RFID lee el código único de la tarjeta y lo envía al Raspberry Pi para que lo procese.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-item">
+                        <div class="process-number">3</div>
+                        <div class="process-content">
+                            <h3 class="process-title">El sistema busca al estudiante</h3>
+                            <p class="process-desc">
+                                El programa busca en la base de datos qué estudiante tiene ese código de tarjeta y obtiene su nombre y curso.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-item">
+                        <div class="process-number">4</div>
+                        <div class="process-content">
+                            <h3 class="process-title">Se registra la hora</h3>
+                            <p class="process-desc">
+                                El sistema guarda la fecha y hora exacta en que el estudiante entró al baño. Esta información queda almacenada
+                                en la base de datos.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-item">
+                        <div class="process-number">5</div>
+                        <div class="process-content">
+                            <h3 class="process-title">Se muestra en la pantalla</h3>
+                            <p class="process-desc">
+                                La pantalla LCD muestra el nombre del estudiante y un mensaje de confirmación. Los profesores pueden ver en
+                                tiempo real quién está fuera del aula.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card margin-top">
+                    <h3 class="card-title">Interfaz de Monitoreo</h3>
+                    <p class="card-text text-center">Los profesores tienen acceso a una página web donde pueden ver:</p>
+                    <div class="monitoring-grid">
+                        <div class="monitoring-item">
+                            <h4 class="monitoring-title">Lista en tiempo real</h4>
+                            <p class="monitoring-desc">Qué estudiantes están actualmente fuera del aula</p>
+                        </div>
+                        <div class="monitoring-item">
+                            <h4 class="monitoring-title">Tiempo transcurrido</h4>
+                            <p class="monitoring-desc">Cuánto tiempo lleva cada estudiante fuera</p>
+                        </div>
+                        <div class="monitoring-item">
+                            <h4 class="monitoring-title">Historial completo</h4>
+                            <p class="monitoring-desc">Registro de todas las salidas anteriores</p>
+                        </div>
+                        <div class="monitoring-item">
+                            <h4 class="monitoring-title">Reportes</h4>
+                            <p class="monitoring-desc">Estadísticas y análisis de uso</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Desarrollo Section -->
+        <section id="desarrollo" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="badge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                        </svg>
+                        Programación
+                    </div>
+                    <h2 class="section-title">Desarrollo del Software</h2>
+                    <div class="title-underline"></div>
+                    <p class="section-intro">
+                        El software fue desarrollado usando tecnologías web modernas y lenguajes de programación
+                    </p>
+                </div>
+                
+                <div class="two-col-grid">
+                    <div class="card">
+                        <h3 class="card-title">Tecnologías Utilizadas</h3>
+                        <div class="tech-list">
+                            <div class="tech-item">
+                                <div class="tech-badge">PHP</div>
+                                <p class="tech-desc">Lenguaje de programación del backend</p>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-badge">Python</div>
+                                <p class="tech-desc">Control del hardware en Raspberry Pi</p>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-badge">HTML/CSS/JS</div>
+                                <p class="tech-desc">Interfaz web de monitoreo</p>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-badge">MySQL</div>
+                                <p class="tech-desc">Base de datos</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="card-title">Metodología</h3>
+                        <div class="methodology-list">
+                            <div class="methodology-item">
+                                <div class="method-number">1</div>
+                                <p>Investigación de tecnologías RFID existentes</p>
+                            </div>
+                            <div class="methodology-item">
+                                <div class="method-number">2</div>
+                                <p>Diseño del sistema y arquitectura de red</p>
+                            </div>
+                            <div class="methodology-item">
+                                <div class="method-number">3</div>
+                                <p>Desarrollo del prototipo y pruebas</p>
+                            </div>
+                            <div class="methodology-item">
+                                <div class="method-number">4</div>
+                                <p>Implementación y ajustes finales</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card margin-top">
+                    <h3 class="card-title">Marco Teórico</h3>
+                    <p class="card-subtitle">Fundamentos científicos y tecnológicos del proyecto</p>
+                    <div class="theory-grid">
+                        <div class="theory-section">
+                            <h4 class="theory-title">RFID (Radio Frequency Identification)</h4>
+                            <p class="theory-text">
+                                Tecnología de identificación mediante ondas de radio que permite la comunicación inalámbrica entre un lector y una etiqueta o tarjeta.
+                                Opera en diferentes frecuencias, siendo 13.56 MHz (High Frequency) la más común para aplicaciones de control de acceso.
+                            </p>
+                        </div>
+                        <div class="theory-section">
+                            <h4 class="theory-title">Computación de Propósito General en Hardware de Bajo Costo</h4>
+                            <p class="theory-text">
+                                El Raspberry Pi representa una revolución en la educación tecnológica al ofrecer capacidades de computación completas en un dispositivo
+                                accesible. Permite ejecutar sistemas operativos completos y controlar hardware a través de sus pines GPIO (General Purpose
+                                Input/Output).
+                            </p>
+                        </div>
+                        <div class="theory-section">
+                            <h4 class="theory-title">Sistemas de Bases de Datos Relacionales</h4>
+                            <p class="theory-text">
+                                Uso de MySQL para almacenar y gestionar información de estudiantes y registros de acceso. Las bases de datos relacionales permiten
+                                consultas eficientes y mantienen la integridad de los datos mediante relaciones entre tablas.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resultados Section -->
+        <section id="resultados" class="section section-gradient">
+            <div class="container">
+                <div class="section-header">
+                    <div class="badge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        Resultados
+                    </div>
+                    <h2 class="section-title">Pruebas y Resultados</h2>
+                    <div class="title-underline"></div>
+                    <p class="section-intro">
+                        Evidencias del funcionamiento del prototipo y beneficios obtenidos
+                    </p>
+                </div>
+                
+                <div class="results-stats">
+                    <div class="stat-box">
+                        <div class="stat-big-value">100%</div>
+                        <div class="stat-big-label">Precisión</div>
+                        <p class="stat-big-desc">En la identificación de tarjetas</p>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-big-value">2s</div>
+                        <div class="stat-big-label">Velocidad</div>
+                        <p class="stat-big-desc">Tiempo de respuesta del sistema</p>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-big-value">24/7</div>
+                        <div class="stat-big-label">Disponibilidad</div>
+                        <p class="stat-big-desc">Sistema funcionando continuamente</p>
+                    </div>
+                </div>
+                
+                <div class="two-col-grid margin-top">
+                    <div class="card">
+                        <h3 class="card-title">Ventajas del Sistema</h3>
+                        <div class="advantages-list">
+                            <div class="advantage-item">
+                                <svg class="advantage-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                                <div>
+                                    <h4 class="advantage-title">Control automático</h4>
+                                    <p class="advantage-desc">No requiere intervención manual</p>
+                                </div>
+                            </div>
+                            <div class="advantage-item">
+                                <svg class="advantage-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                                <div>
+                                    <h4 class="advantage-title">Registro preciso</h4>
+                                    <p class="advantage-desc">Fecha and hora exacta de cada acceso</p>
+                                </div>
+                            </div>
+                            <div class="advantage-item">
+                                <svg class="advantage-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                                <div>
+                                    <h4 class="advantage-title">Fácil de usar</h4>
+                                    <p class="advantage-desc">Solo acercar la tarjeta al lector</p>
+                                </div>
+                            </div>
+                            <div class="advantage-item">
+                                <svg class="advantage-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                                <div>
+                                    <h4 class="advantage-title">Información en tiempo real</h4>
+                                    <p class="advantage-desc">Acceso inmediato a reportes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="card-title">Alcances y Limitaciones</h3>
+                        <div class="scope-section">
+                            <h4 class="scope-title success-text">Alcances</h4>
+                            <ul class="scope-list">
+                                <li>Control efectivo de acceso a baños</li>
+                                <li>Registro histórico de todas las salidas</li>
+                                <li>Sistema escalable a otras áreas del colegio</li>
+                                <li>Bajo costo de implementación</li>
+                            </ul>
+                        </div>
+                        <div class="scope-section">
+                            <h4 class="scope-title info-text">Limitaciones</h4>
+                            <ul class="scope-list">
+                                <li>Requiere que estudiantes lleven su tarjeta</li>
+                                <li>Rango limitado del sensor (0-5 cm)</li>
+                                <li>Necesita conexión eléctrica constante</li>
+                                <li>Depende de la red del colegio</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Créditos Section -->
+        <section id="creditos" class="section section-footer">
+            <div class="container">
+                <div class="section-header">
+                    <div class="badge badge-light">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                        Créditos
+                    </div>
+                    <h2 class="section-title text-white">Equipo del Proyecto</h2>
+                    <div class="title-underline"></div>
+                </div>
+                
+                <div class="credits-card">
+                    <div class="team-section">
+                        <h3 class="team-title">Estudiantes Desarrolladores</h3>
+                        <div class="team-grid">
+                            <div class="team-member">
+                                <div class="avatar">JM</div>
+                                <h4 class="member-name">Jose Manuel Moreno Osorio</h4>
+                                <p class="member-role">Programación, Hardware,Interfaz Web y Documentació</p>
+                            </div>
+                            <div class="team-member">
+                                <div class="avatar">JJ</div>
+                                <h4 class="member-name">Juan José Atehortúa Vásquez</h4>
+                                <p class="member-role">Bases Teoricas</p>
+                            </div>
+                            <div class="team-member">
+                                <div class="avatar">JD</div>
+                                <h4 class="member-name">José David Londoño Holguín</h4>
+                                <p class="member-role">Bases Teóricas</p>
+                            </div>
+                        </div>
+
+                        <h3 class="team-title" style="margin-top:1rem;">Profesores Mentores</h3>
+                        <div class="team-grid">
+                            <div class="team-member">
+                                <div class="avatar">SL</div>
+                                <h4 class="member-name">Santiago Loaiza Saldarriaga</h4>
+                                <p class="member-role">Mentor</p>
+                            </div>
+                            <div class="team-member">
+                                <div class="avatar">EM</div>
+                                <h4 class="member-name">Eison De Jesús Montoya Jimenez</h4>
+                                <p class="member-role">Mentor</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="school-info">
+                        <img src="https://www.pngkit.com/png/detail/764-7649977_colegio-divino-salvador-a-la-tienda-escolar-png.png" alt="Colegio Divino Salvador" class="footer-logo">
+                        <h3 class="school-name">Colegio Divino Salvador</h3>
+                        <p class="school-location">Medellín, Colombia</p>
+                        <p class="school-year">Proyecto Educativo 2025</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- GitHub repo preview modal (se mantiene por compatibilidad, no se usa para previsualizar ahora) -->
+    <div id="preview-modal" class="modal" aria-hidden="true" style="display:none;">
+        <div class="modal-backdrop" id="preview-modal-backdrop" tabindex="-1"></div>
+        <div class="modal-panel" role="dialog" aria-modal="true" aria-label="Previsualización de GitHub">
+            <button id="preview-modal-close" class="modal-close" aria-label="Cerrar previsualización">×</button>
+            <div class="modal-body" style="display:flex; gap:0.5rem; padding:0;">
+                <!-- Left: file tree / navigation -->
+                <div id="repo-files" style="width:35%; max-width:420px; min-width:200px; overflow:auto; border-right:1px solid var(--card-border); background:var(--card); padding:0.5rem;">
+                    <div id="repo-path" style="font-size:0.9rem; padding:0.25rem 0.5rem; color:var(--muted-foreground);">/</div>
+                    <ul id="repo-list" style="list-style:none; margin:0; padding:0.25rem;"></ul>
+                </div>
+                <!-- Right: preview -->
+                <div id="repo-preview" style="flex:1; min-height:300px; overflow:auto; padding:1rem; background:var(--card-foreground); color:var(--card-foreground);">
+                    <div id="preview-loading" style="color:var(--muted-foreground);">Selecciona un archivo para ver su contenido</div>
+                    <div id="preview-content" style="margin-top:0.5rem;"></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="padding:0.5rem 1rem; text-align:center; background:transparent;">
+                <small style="color:var(--muted-foreground);">
+                    Abrir en GitHub:
+                    <a id="preview-repo-link" href="https://github.com/STELLAXACT/Proyecto-Investigacion-RFID" target="_blank" rel="noopener noreferrer">STELLAXACT/Proyecto-Investigacion-RFID</a>
+                </small>
+            </div>
+        </div>
+    </div>
+ 
+     <script src="script.js"></script>
+ </body>
+ </html>
